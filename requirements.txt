@@ -2,3 +2,7 @@ streamlit
 openai
 autogen-agentchat
 autogen-ext[openai]
+wordcloud
+matplotlib
+jieba
+scikit-learn
