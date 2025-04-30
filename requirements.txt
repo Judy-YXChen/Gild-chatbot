@@ -6,3 +6,6 @@ wordcloud
 matplotlib
 jieba
 scikit-learn
+numpy
+gensim
+plotly
