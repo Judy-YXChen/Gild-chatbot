@@ -134,7 +134,7 @@ class General:
             return "⚠️ 沒有有效的詞彙可產生詞雲，請確認輸入或群號是否正確。"
 
         freq_dict = dict(Counter(clean_tokens))
-        return safe_wordcloud(freq_dict, title=title)
+        return General.safe_wordcloud(freq_dict, title=title)
 
     def show_cluster_wordcloud(self, cluster_id: int):
         cluster_ids = set(track.get("Cluster") for track in self.full_record if "Cluster" in track)
@@ -160,7 +160,7 @@ class General:
             cluster_counts[cid] = cluster_counts.get(cid, 0) + 1
             token_counts[cid] = token_counts.get(cid, 0) + len(track.get("Tokens", []))
         for cid in sorted(cluster_counts):
-            summary.append(f"🔹 第 {cid} 群：{cluster_counts[cid]} 首歌，{token_counts[cid]} 個詞\n")
+            summary.append(f"\n🔹 第 {cid} 群：{cluster_counts[cid]} 首歌，{token_counts[cid]} 個詞")
         if not summary:
             return "⚠️ 尚未完成分群，請確認模型已訓練。"
         return "📊 分群摘要：\n" + "\n".join(summary)
@@ -359,31 +359,59 @@ def main():
 
     elif selected_page == "Q2 SKIP-GRAM":
         st.subheader("🧠 Q2: Skip-gram")
-        prompt = st.chat_input("Please input sentences to analyze.", key="q2_input")
-        if prompt:
-            tokenized = preprocess_input(prompt)
-            keyword = st.text_input("🔍 Skip-gram: Which word do you want to explore?", key="q2_keyword")
-            result = run_skipgram_analysis(tokenized, keyword or None)
-            if isinstance(result, str):
-                st.warning(result)
-            else:
-                vector, similar = result
-                st.write("📌 向量：", vector)
-                st.write("🔍 最相似詞：", similar)
+
+        # 第一步：輸入語料
+        if "q2_tokenized" not in st.session_state:
+            prompt = st.chat_input("Please input sentences to analyze.", key="q2_input")
+            if prompt:
+                tokenized = preprocess_input(prompt)
+                st.session_state.q2_tokenized = tokenized
+                st.rerun()
+
+        # 第二步：輸入要探索的詞
+        elif "q2_tokenized" in st.session_state:
+            keyword = st.chat_input("‼️Please input the keyword you wanna know more‼️", key="q2_keyword")
+            if keyword:
+                result = run_skipgram_analysis(st.session_state.q2_tokenized, keyword)
+                if isinstance(result, str):
+                    st.warning(result)
+                else:
+                    vector, similar = result
+                    st.write("📌 Vector for the keyword：", vector)
+                    st.write("🔍 Most similar words to the keyword ：", similar)
+
+            # 加入 reset 按鈕讓使用者重來
+            if st.button("🔁 Input new sentences to analyze."):
+                del st.session_state.q2_tokenized
+                st.rerun()
 
     elif selected_page == "Q3 CBOW":
         st.subheader("📘 Q3: CBOW")
-        prompt = st.chat_input("Please input sentences to analyze.", key="q3_input")
-        if prompt:
-            tokenized = preprocess_input(prompt)
-            keyword = st.text_input("🔍 CBOW: Which word do you want to explore?", key="q3_keyword")
-            result = run_cbow_analysis(tokenized, keyword or None)
-            if isinstance(result, str):
-                st.warning(result)
-            else:
-                vector, similar = result
-                st.write("📌 向量：", vector)
-                st.write("🔍 最相似詞：", similar)
+
+        # 第一步：輸入語料
+        if "q3_tokenized" not in st.session_state:
+            prompt = st.chat_input("Please input sentences to analyze.", key="q3_input")
+            if prompt:
+                tokenized = preprocess_input(prompt)
+                st.session_state.q3_tokenized = tokenized
+                st.rerun()
+
+        # 第二步：輸入要探索的詞
+        elif "q3_tokenized" in st.session_state:
+            keyword = st.chat_input("‼️Please input the keyword you wanna know more‼️", key="q3_keyword")
+            if keyword:
+                result = run_cbow_analysis(st.session_state.q3_tokenized, keyword)
+                if isinstance(result, str):
+                    st.warning(result)
+                else:
+                    vector, similar = result
+                    st.write("📌 Vector for the keyword：", vector)
+                    st.write("🔍 Most similar words to the keyword ：", similar)
+
+            # 加入 reset 按鈕讓使用者重來
+            if st.button("🔁 Input new sentences to analyze."):
+                del st.session_state.q3_tokenized
+                st.rerun()
 
 
 if __name__ == "__main__":
