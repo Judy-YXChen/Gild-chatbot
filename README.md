@@ -36,6 +36,37 @@ A simple Streamlit app that shows how to build a chatbot using OpenAI's GPT-3.5.
 
 ---
 
+## 📌 Additional Features: Word Embedding & Semantic Visualization (English Input)
+
+These tabs support English input to analyze and visualize word relationships using Word2Vec models trained on custom input.
+
+### Q1-1, 1-2: Word Embedding Visualization
+
+| Feature                  | Description                                                                 |
+|--------------------------|-----------------------------------------------------------------------------|
+| 2D Visualization         | Input 1+ English sentences and view token relationships using PCA (2D)     |
+| 3D Visualization         | Similar to above, but with 3D interactive scatter plot                     |
+
+### Q2: Skip-gram Analysis
+
+| Feature                    | Description                                                                 |
+|----------------------------|-----------------------------------------------------------------------------|
+| Step 1: Sentence Input     | Input English sentences (multi-line supported)                             |
+| Step 2: Keyword Query      | Input a target word to get its vector and most similar words (Skip-gram)   |
+| Reset Input                | Click the button to input a new sentence corpus                            |
+
+### Q3: CBOW Analysis
+
+| Feature                    | Description                                                                 |
+|----------------------------|-----------------------------------------------------------------------------|
+| Step 1: Sentence Input     | Input English sentences (multi-line supported)                             |
+| Step 2: Keyword Query      | Input a target word to get its vector and most similar words (CBOW)        |
+| Reset Input                | Click the button to input a new sentence corpus                            |
+
+> Note: The Word2Vec model is trained live on your input each time.
+
+---
+
 ### ✅ 測試方式
 
 打開終端機並執行：
