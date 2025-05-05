@@ -1,10 +1,25 @@
-# 💬 Chatbot template
+# 🎵 Lyrics Mining Agent
 
-A simple Streamlit app that shows how to build a chatbot using OpenAI's GPT-3.5.
+An interactive chatbot that analyzes Chinese lyrics using clustering and word cloud generation, and supports English input for Word2Vec-based semantic visualization. Built with Streamlit and extended from a course project originally designed to demonstrate OpenAI GPT-3.5 integration.
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://chatbot-template.streamlit.app/)
 
-### How to run it on your own machine
+---
+
+## 🧠 About This Project
+
+This project extends a text mining course template into a fully interactive AI agent. It enables users to input Mandarin song lyrics and receive:
+
+- Cluster prediction using KMeans
+- Word cloud generation based on lyric content
+- Summary statistics of lyric clusters
+- Semantic visualization using English Word2Vec embeddings
+
+This app showcases how clustering, embeddings, and NLP interaction can be integrated into a bilingual chatbot built with Streamlit.
+
+---
+
+## How to run it on your own machine
 
 1. Install the requirements
 
@@ -20,7 +35,7 @@ A simple Streamlit app that shows how to build a chatbot using OpenAI's GPT-3.5.
 
 ---
 
-## Custom Feature: 中文歌詞聚類 Chatbot
+## 中文歌詞聚類 Chatbot
 
 這個 chatbot 整合了詞雲產生與 KMeans 聚類的功能，能即時回答與歌詞相關的互動式提問。
 
@@ -36,9 +51,9 @@ A simple Streamlit app that shows how to build a chatbot using OpenAI's GPT-3.5.
 
 ---
 
-## 📌 Additional Features: Word Embedding & Semantic Visualization (English Input)
+## Word Embedding & Semantic Visualization (English Input)
 
-These tabs support English input to analyze and visualize word relationships using Word2Vec models trained on custom input.
+These tabs support English input to analyze and visualize word relationships using Word2Vec models trained on user-defined input.
 
 ### Q1-1, 1-2: Word Embedding Visualization
 
@@ -67,9 +82,7 @@ These tabs support English input to analyze and visualize word relationships usi
 
 ---
 
-### ✅ 測試方式
+## 🙋 Author's Note
 
-打開終端機並執行：
-
-```bash
-streamlit run streamlit_app.py
+This chatbot was developed as part of a text mining midterm project and enhanced with original features including lyric clustering, multilingual support, and dynamic visualization.  
+Forked from [GildShen/Gild-chatbot](https://github.com/GildShen/Gild-chatbot) and significantly extended for advanced lyric analysis and interactive AI agent functionality.
